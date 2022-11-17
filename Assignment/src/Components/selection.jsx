@@ -10,10 +10,13 @@ export default function Selection(){
     const [amount, setAmount] = useState(0)
     const [totalAmount, setTotalAmount] = useState(0);
     const [errorMessage, setErrorMessage] = useState(true);
+    const [userPreview, setUserPreview] = useState(false)
 
     const [tier1visible, setTier1visible] = useState(false)
     const [tier2visible, setTier2visible] = useState(false)
     const [tier3visible, setTier3visible] = useState(false)
+
+    const [withAmount, setWithAmount] = useState()
 
     useEffect(() => {
         tier === "Tier1" ? setTier1visible(true) : setTier1visible(false);
@@ -23,8 +26,7 @@ export default function Selection(){
     
 
     const [users, setUsers] = useState([
-        { userName: 'Sample User', userAmount: 0, userTier: "" },
-        // { userName: 'bola', userAmount: 200, userTier: "Tier 2" },
+        { userName: '', userAmount: '', userTier: "", toWithdraw : ""},
     ]);
     
     function handleChange(event) {
@@ -37,12 +39,37 @@ export default function Selection(){
     }
     function handleChangeAmount(event) {
         setAmount(event.target.value)
-        if(((tier=="Tier1") && (event.target.value == "10")) || ((tier == "Tier2") && (event.target.value == "20")) || ((tier == "Tier3") && (event.target.value == "30"))){
+        if(((tier=="Tier1") && (event.target.value == "10000")) || ((tier == "Tier2") && (event.target.value == "20000")) || ((tier == "Tier3") && (event.target.value == "30000"))){
             setErrorMessage(false)
         }else{
             setErrorMessage(true)
         }
+
+        if (tier == "Tier1"){
+            setWithAmount((event.target.value * 0.05) + parseInt(event.target.value))
+        } else if(tier=="Tier2"){
+            setWithAmount((event.target.value * 0.1) + parseInt(event.target.value))
+        } else if(tier =="Tier3"){
+            setWithAmount((event.target.value * 0.2) + parseInt(event.target.value))
+        }
         
+    }
+
+    function userWithdraw(userName, userAmount, userTier, toWithdraw){
+        
+        const deleteUser = users.filter(function(){
+           return 
+            ({
+                userName: !userName,
+                userAmount: !userAmount,
+                userTier: !userTier,
+                toWithdraw : !toWithdraw
+            });
+
+        }) 
+
+        setUsers(deleteUser);
+          
     }
 
     
@@ -57,6 +84,7 @@ export default function Selection(){
             userName: name,
             userAmount: amount,
             userTier: tier,
+            toWithdraw : withAmount
         };
         
         const newUsers = [...users, newUser];
@@ -67,6 +95,10 @@ export default function Selection(){
         setAmount(0)
         setTotalAmount(totalAmount)
         calculateTotal();
+        setUserPreview(true)
+        setErrorMessage(true)
+
+       
         
     }
 
@@ -82,6 +114,7 @@ export default function Selection(){
     return(
         <section className="collect-details">
             <form onSubmit={handleSubmit} className="details-form">
+                <label className="name-label" htmlFor="name">Input your name</label>
                 <input
                     className="name-field"
                     type="text"
@@ -107,7 +140,7 @@ export default function Selection(){
                     <option value="Tier3">Tier 3</option>
                 
                 </select>
-                <div>
+                <div className="tier-texts">
                     {tier1visible && <Tier1 />}
                     {tier2visible && <Tier2 />}
                     {tier3visible && <Tier3 />}
@@ -123,7 +156,7 @@ export default function Selection(){
                     value={amount}
                />
                <div>
-                    {errorMessage && <p>Please, input the correct amount for your tier</p> }
+                    {errorMessage && <p className="error-text">Please, input the correct amount for your tier</p> }
                </div>
                <div>
                   {!errorMessage && <button className="submit-button">Submit</button>}
@@ -140,17 +173,19 @@ export default function Selection(){
                                 <h4 className="user-tier">{user.userTier}</h4>
                                 <h4 className="user-amount"> {user.userAmount} </h4>
                             </div>
-
-                            <div className='withdraw'>
-                                
-                                <button className="withdraw-button">
-                                    Withdraw
-                                </button>
+                            <div> {userPreview &&
+                                <div className='withdraw'>
+                                    
+                                    <button onClick={userWithdraw} className="withdraw-button">
+                                        Withdraw
+                                    </button>
+                                    <p>{user.toWithdraw}</p>
+                                </div>}
                             </div>
                         </div>
                 ))}
             </div>
-            <div className='total'>Total: {totalAmount}</div>
+            <div className='total'>Total Amount Saved: {totalAmount}</div>
         </section>
     )
 }

@@ -20,9 +20,9 @@
   border-radius: 0.5rem;
 }
 
-.select-label, .amount-label{
+.select-label, .amount-label, .name-label{
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 1rem;
   line-height: 2rem;
   margin-bottom: 1rem;
 }
@@ -59,5 +59,20 @@
 }
 
 .user-name, .user-tier, .user-amount{
-  inline-size: 5rem;
+  inline-size: 10rem;
+}
+
+.user-name{
+  font-weight: 500;
+}
+
+.tier-texts{
+  margin-top: 1rem;
+  border: 1px solid #A02279;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+}
+
+.error-text{
+  color: red;
 }
