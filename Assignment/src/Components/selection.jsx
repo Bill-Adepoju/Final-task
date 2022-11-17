@@ -55,22 +55,21 @@ export default function Selection(){
         
     }
 
-    function userWithdraw(userName, userAmount, userTier, toWithdraw){
+    // function userWithdraw(){
         
-        const deleteUser = users.filter(function(){
-           return 
-            ({
-                userName: !userName,
-                userAmount: !userAmount,
-                userTier: !userTier,
-                toWithdraw : !toWithdraw
-            });
+    //     users.filter(function(userName, userAmount, userTier, toWithdraw){
+           
+    //         setUsers({
+    //             userName: !userName,
+    //             userAmount: !userAmount,
+    //             userTier: !userTier,
+    //             toWithdraw : !toWithdraw
+    //         });
 
-        }) 
 
-        setUsers(deleteUser);
+    //     }) 
           
-    }
+    // }
 
     
     
@@ -176,7 +175,7 @@ export default function Selection(){
                             <div> {userPreview &&
                                 <div className='withdraw'>
                                     
-                                    <button onClick={userWithdraw} className="withdraw-button">
+                                    <button  className="withdraw-button">
                                         Withdraw
                                     </button>
                                     <p>{user.toWithdraw}</p>
@@ -185,7 +184,7 @@ export default function Selection(){
                         </div>
                 ))}
             </div>
-            <div className='total'>Total Amount Saved: {totalAmount}</div>
+            <div className='total'><p className="total-text">Total Amount Saved: {totalAmount}</p> </div>
         </section>
     )
 }
