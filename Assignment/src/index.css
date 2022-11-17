@@ -41,12 +41,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .user-details{
   display: flex;
-  gap: 1rem;
+  gap: 4rem;
   justify-content: center;
   align-items: center;
+}
+
+.total{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.user-name, .user-tier, .user-amount{
+  inline-size: 5rem;
 }
