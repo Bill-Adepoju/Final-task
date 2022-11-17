@@ -1,0 +1,52 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.details-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.name-field, .select-field, .amount-field{
+  width: 20rem;
+  height: 3rem;
+  border: 1px solid #A3A3A3;
+  border-radius: 0.5rem;
+}
+
+.select-label, .amount-label{
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.submit-button{
+  margin-top: 2rem;
+  background: linear-gradient(90deg, #A02279 11.45%, #A02279 11.45%);
+  border: 1px;
+  border-radius: 0.625rem ;
+  padding: 0.94rem 1.69rem;
+  color: white;
+}
+
+.user-container{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.user-details{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}

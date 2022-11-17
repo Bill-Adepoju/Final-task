@@ -5,9 +5,10 @@ export default function Selection(){
     const [tier, setTier] = useState("Select Tier")
     const [amount, setAmount] = useState(0)
     const [totalAmount, setTotalAmount] = useState(0);
+    const [display, setDisplay] = useState(false)
 
     const [users, setUsers] = useState([
-        { userName: '', userAmount: 0, userTier: "" },
+        { userName: 'Sample User', userAmount: 0, userTier: "" },
         // { userName: 'bola', userAmount: 200, userTier: "Tier 2" },
     ]);
     
@@ -27,6 +28,7 @@ export default function Selection(){
     function handleSubmit(event){
         event.preventDefault()
         console.log(name , tier, amount, totalAmount)
+        setDisplay(true)
         
         const newUser = {
             userName: name,
@@ -55,9 +57,10 @@ export default function Selection(){
     };
 
     return(
-        <section>
-            <form onSubmit={handleSubmit}>
+        <section className="collect-details">
+            <form onSubmit={handleSubmit} className="details-form">
                 <input
+                    className="name-field"
                     type="text"
                     placeholder="Input Name"
                     onChange={handleChange}
@@ -66,9 +69,10 @@ export default function Selection(){
                />
                <br />
 
-                <label htmlFor="tier">What tier do you prefer?</label>
-                <br />
-                <select 
+                <label className="select-label" htmlFor="tier">What tier do you prefer?</label>
+    
+                <select
+                    className="select-field" 
                     id="tier" 
                     value={tier}
                     onChange={handleChangeTier}
@@ -81,39 +85,35 @@ export default function Selection(){
                 
                 </select>
                 <br />
+                <label className="amount-label" htmlFor="amount">How much would you like to save?</label>
                 <input
+                    className="amount-field"
                     type="text"
                     placeholder="Input Amount"
                     onChange={handleChangeAmount}
                     name="amount"
                     value={amount}
                />
-               <button>Submit</button>
+               <button className="submit-button">Submit</button>
 
             </form>
 
             <div className='user-list'>
-                {users.map((user, index) => (
-                    <div className='item-container'>
-                        <div className='item-name'>
-                                <>
+                {users.map((user, index) => ( 
+                        <div className='user-container'>
+                            <div className='user-details'>
+                                <h2 className='user-name'>{user.userName}</h2>
+                                <h4>{user.userTier}</h4>
+                                <h4> {user.userAmount} </h4>
+                            </div>
+
+                            <div className='withdraw'>
                                 
-                                    <span className='completed'>{user.userName}</span>
-                                </>
-                          
-                                <>
-                                    
-                                    <span>{user.userTier}</span>
-                                </>
-                           
+                                <button className="withdraw-button">
+                                    Withdraw
+                                </button>
+                            </div>
                         </div>
-                        <div className='withdraw'>
-                            <span> {user.userAmount} </span>
-                            <button>
-                                Withdraw
-                            </button>
-                        </div>
-                    </div>
                 ))}
             </div>
             <div className='total'>Total: {totalAmount}</div>
